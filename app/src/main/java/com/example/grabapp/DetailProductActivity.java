@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grabapp.adapter.CommentAdapter;
+import com.example.grabapp.model.CartManager;
 import com.example.grabapp.model.Comment;
 import com.example.grabapp.model.Product;
 
@@ -66,11 +67,11 @@ public class DetailProductActivity extends AppCompatActivity {
         }
 
         // Xử lý khi nhấn nút "Mua ngay"
-//        buyButton.setOnClickListener(v -> {
-//            CartManager.addProduct(product);
-//            Intent cartIntent = new Intent(DetailProductActivity.this, CartActivity.class);
-//            startActivity(cartIntent);
-//        });
+        buyButton.setOnClickListener(v -> {
+            CartManager.addProduct(product);
+            Intent cartIntent = new Intent(DetailProductActivity.this, CartActivity.class);
+            startActivity(cartIntent);
+        });
 //
 //
 //        favorite_btn.setOnClickListener(v -> {

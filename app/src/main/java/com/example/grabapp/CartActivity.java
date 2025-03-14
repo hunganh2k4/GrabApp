@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grabapp.adapter.CartAdapter;
+import com.example.grabapp.model.CartManager;
 import com.example.grabapp.model.Product;
 
 import java.text.SimpleDateFormat;
@@ -41,7 +42,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
         btnBack = findViewById(R.id.btnBack);
 
         // Sử dụng this như một OnTotalPriceChangeListener
-//        cartAdapter = new CartAdapter(this, CartManager.getCartProducts(), this);
+        cartAdapter = new CartAdapter(this, CartManager.getCartProducts(), this);
         listViewCart.setAdapter(cartAdapter);
 
 

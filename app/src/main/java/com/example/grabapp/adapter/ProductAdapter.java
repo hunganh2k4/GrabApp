@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grabapp.CartActivity;
 import com.example.grabapp.DetailProductActivity;
 import com.example.grabapp.R;
+import com.example.grabapp.model.CartManager;
 import com.example.grabapp.model.Product;
 
 import java.util.List;
@@ -64,11 +65,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             context.startActivity(intent);
         });
 
-//        holder.btnAddToCart.setOnClickListener(v -> {
-//            CartManager.addProduct(product);
-//            Intent intent = new Intent(context, CartActivity.class);
-//            context.startActivity(intent);
-//        });
+        holder.btnAddToCart.setOnClickListener(v -> {
+            CartManager.addProduct(product);
+            Intent intent = new Intent(context, CartActivity.class);
+            context.startActivity(intent);
+        });
 
 
         // Long click vào sản phẩm

@@ -68,9 +68,45 @@ public class RestaurantDAO {
                     List<Restaurant> restaurantList = new ArrayList<>();
                     for (DocumentSnapshot document : queryDocumentSnapshots) {
                         Restaurant restaurant = document.toObject(Restaurant.class);
-                        restaurantList.add(restaurant);
+                        if (restaurant != null) {
+                            String restaurantId = restaurant.getId();
+
+                            // Gọi hàm lấy danh sách sản phẩm cho nhà hàng này
+                            getProductList(restaurantId, new OnFirestoreDataListener<List<Product>>() {
+                                @Override
+                                public void onSuccess(List<Product> productList) {
+                                    restaurant.setProductList(productList);
+                                    restaurantList.add(restaurant);
+
+                                    // Kiểm tra nếu tất cả nhà hàng đã tải xong sản phẩm thì trả về danh sách
+                                    if (restaurantList.size() == queryDocumentSnapshots.size()) {
+                                        listener.onSuccess(restaurantList);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(String errorMessage) {
+                                    listener.onFailure(errorMessage);
+                                }
+                            });
+                        }
                     }
-                    listener.onSuccess(restaurantList);
+                })
+                .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
+    }
+
+
+    public void getProductList(String restaurantId, OnFirestoreDataListener<List<Product>> listener) {
+        restaurantCollection.document(restaurantId)
+                .collection("productList")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    List<Product> productList = new ArrayList<>();
+                    for (DocumentSnapshot document : queryDocumentSnapshots) {
+                        Product product = document.toObject(Product.class);
+                        productList.add(product);
+                    }
+                    listener.onSuccess(productList);
                 })
                 .addOnFailureListener(e -> listener.onFailure(e.getMessage()));
     }

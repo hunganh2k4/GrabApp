@@ -131,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(List<Restaurant> data) {
                 RestaurantAdapter adapter = new RestaurantAdapter(MainActivity.this, data, restaurant -> {
-//              Intent intent = new Intent(MainActivity.this, FoodActivity.class);
-//              intent.putExtra("restaurant", restaurant);
-//              startActivity(intent);
+                  Intent intent = new Intent(MainActivity.this, FoodActivity.class);
+                  intent.putExtra("restaurant", restaurant);
+                  startActivity(intent);
                 });
 //
                 restaurantRecyclerView.setAdapter(adapter);
