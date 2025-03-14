@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "829087172315",
+    "project_id": "fir-project-12078",
+    "storage_bucket": "fir-project-12078.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829087172315:android:b86295a39d7617f09daefe",
+        "android_client_info": {
+          "package_name": "com.example.firebaseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNg9aSMaMyYQN3H68v7XyXTOLSJadCEVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829087172315:android:a68cb61d11a18bd29daefe",
+        "android_client_info": {
+          "package_name": "com.example.grabapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNg9aSMaMyYQN3H68v7XyXTOLSJadCEVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829087172315:android:aeb21ddecb3220e79daefe",
+        "android_client_info": {
+          "package_name": "com.example.myapplication123"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNg9aSMaMyYQN3H68v7XyXTOLSJadCEVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
