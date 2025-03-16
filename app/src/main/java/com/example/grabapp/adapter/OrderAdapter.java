@@ -18,11 +18,9 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
     private List<Order> orderList;
-    private DatabaseHelper databaseHelper;
 
-    public OrderAdapter(List<Order> orderList, DatabaseHelper databaseHelper) {
+    public OrderAdapter(List<Order> orderList) {
         this.orderList = orderList;
-        this.databaseHelper = databaseHelper;
     }
 
     @NonNull
@@ -39,10 +37,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvOrderDate.setText("Date: " + order.getDate());
         holder.tvOrderTotal.setText("Total Price: " + order.getTotalPrice() + "đ");
 
-        // Lấy danh sách sản phẩm của đơn hàng
-        List<OrderItem> orderItems = databaseHelper.getOrderItemsByOrderId(order.getId());
+//         Lấy danh sách sản phẩm của đơn hàng
+        List<OrderItem> orderItems = order.getItems();
 
-        // Gán Adapter cho RecyclerView con
+//         Gán Adapter cho RecyclerView con
         OrderItemAdapter itemAdapter = new OrderItemAdapter(orderItems);
         holder.recyclerViewOrderItems.setLayoutManager(new LinearLayoutManager(holder.itemView.getContext()));
         holder.recyclerViewOrderItems.setAdapter(itemAdapter);

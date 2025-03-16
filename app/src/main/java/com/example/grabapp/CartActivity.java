@@ -11,13 +11,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grabapp.adapter.CartAdapter;
+import com.example.grabapp.dao.OrderDAO;
 import com.example.grabapp.model.CartManager;
+import com.example.grabapp.model.Order;
+import com.example.grabapp.model.OrderItem;
 import com.example.grabapp.model.Product;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class CartActivity extends AppCompatActivity implements CartAdapter.OnTotalPriceChangeListener {
 
@@ -57,27 +62,55 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
 
 
 
-//        btnCheckout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (CartManager.getCartProducts().isEmpty()) {
-//                    Toast.makeText(CartActivity.this, "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                int totalPrice = (int) CartManager.getTotalPrice();
-//                String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-//
-//                // Thêm đơn hàng vào database
-//                DatabaseHelper dbHelper = new DatabaseHelper(CartActivity.this);
-//                dbHelper.addOrder(totalPrice, currentDate, CartManager.getCartProducts());
-//
-//                CartManager.clear();
-//                cartAdapter.notifyDataSetChanged();
-//                txtTotalPrice.setText("Tổng: 0 VND");
-//                Toast.makeText(CartActivity.this, "Đơn hàng đã được lưu!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CartManager.getCartProducts().isEmpty()) {
+                    Toast.makeText(CartActivity.this, "Giỏ hàng trống!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // ✅ Tạo orderId ngẫu nhiên
+                String orderId = UUID.randomUUID().toString();
+                // ✅ Lấy tổng giá đơn hàng
+                int totalPrice = (int) CartManager.getTotalPrice();
+                // ✅ Lấy thời gian hiện tại
+                String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+                // ✅ Giả sử userId lấy từ Firebase Auth hoặc SharedPreferences
+                String userId = "1"; // Thay bằng userId thực tế
+
+                // ✅ Chuyển sản phẩm trong giỏ hàng sang danh sách OrderItem
+                List<OrderItem> orderItems = new ArrayList<>();
+                for (Product product : CartManager.getCartProducts()) {
+                    orderItems.add(new OrderItem(
+                            product.getId(),
+                            product.getImageResId(),
+                            1,
+                            product.getName()
+                    ));
+                }
+
+                // ✅ Tạo đối tượng đơn hàng với orderId là UUID
+                Order order = new Order(orderId, totalPrice, currentDate, userId, orderItems);
+
+                // ✅ Lưu vào Firestore
+                OrderDAO orderDAO = new OrderDAO();
+                orderDAO.saveOrder(order, new OrderDAO.OnOrderSavedListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(CartActivity.this, "Đơn hàng đã được lưu!", Toast.LENGTH_SHORT).show();
+                        CartManager.clear();
+                        cartAdapter.notifyDataSetChanged();
+                        txtTotalPrice.setText("Tổng: 0 VND");
+                    }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Toast.makeText(CartActivity.this, "Lỗi khi lưu đơn hàng!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
 
 

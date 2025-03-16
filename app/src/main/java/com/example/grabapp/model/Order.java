@@ -3,31 +3,61 @@ package com.example.grabapp.model;
 import java.util.List;
 
 public class Order {
-    private int id;
-    private int totalPrice;
+    private String id;
+    private String userId; // ID của người dùng đặt hàng
+    private double totalPrice;
     private String date;
-    private List<OrderItem> orderItems;
+    private List<OrderItem> items; // Danh sách sản phẩm trong đơn hàng
 
-    public Order(int id, int totalPrice, String date, List<OrderItem> orderItems) {
-        this.id = id;
-        this.totalPrice = totalPrice;
-        this.date = date;
-        this.orderItems = orderItems;
+    public Order() {
+        // Firebase yêu cầu constructor mặc định
     }
 
-    public int getId() {
+    public Order(String  id, double totalPrice, String date,String userId, List<OrderItem> items) {
+        this.id = id;
+        this.userId = userId;
+        this.totalPrice = totalPrice;
+        this.date = date;
+        this.items = items;
+    }
+
+    public String  getId() {
         return id;
     }
 
-    public int getTotalPrice() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public double getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 
     public String getDate() {
         return date;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return orderItems;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }

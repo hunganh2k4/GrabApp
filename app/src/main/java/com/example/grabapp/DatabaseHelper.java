@@ -194,75 +194,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
 
-    public void addOrder(int totalPrice, String date, List<Product> orderItems) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues orderValues = new ContentValues();
-        orderValues.put(COLUMN_ORDER_TOTAL_PRICE, totalPrice);
-        orderValues.put(COLUMN_ORDER_DATE, date);
+//    public void addOrder(int totalPrice, String date, List<Product> orderItems) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues orderValues = new ContentValues();
+//        orderValues.put(COLUMN_ORDER_TOTAL_PRICE, totalPrice);
+//        orderValues.put(COLUMN_ORDER_DATE, date);
+//
+//        // Thêm đơn hàng vào bảng orders
+//        long orderId = db.insert(TABLE_ORDERS, null, orderValues);
+//
+//        if (orderId != -1) { // Nếu thêm đơn hàng thành công
+//            for (Product item : orderItems) {
+//                ContentValues itemValues = new ContentValues();
+//                itemValues.put(COLUMN_ORDER_ITEM_ORDER_ID, orderId);
+//                itemValues.put(COLUMN_ORDER_ITEM_PRODUCT_NAME, item.getName());
+//                itemValues.put(COLUMN_ORDER_ITEM_QUANTITY, 1);
+//                itemValues.put(COLUMN_ORDER_ITEM_IMAGE, item.getImageResId());
+//
+//                // Thêm từng sản phẩm vào bảng order_items
+//                db.insert(TABLE_ORDER_ITEMS, null, itemValues);
+//            }
+//        }
+//
+//        db.close();
+//    }
 
-        // Thêm đơn hàng vào bảng orders
-        long orderId = db.insert(TABLE_ORDERS, null, orderValues);
-
-        if (orderId != -1) { // Nếu thêm đơn hàng thành công
-            for (Product item : orderItems) {
-                ContentValues itemValues = new ContentValues();
-                itemValues.put(COLUMN_ORDER_ITEM_ORDER_ID, orderId);
-                itemValues.put(COLUMN_ORDER_ITEM_PRODUCT_NAME, item.getName());
-                itemValues.put(COLUMN_ORDER_ITEM_QUANTITY, 1);
-                itemValues.put(COLUMN_ORDER_ITEM_IMAGE, item.getImageResId());
-
-                // Thêm từng sản phẩm vào bảng order_items
-                db.insert(TABLE_ORDER_ITEMS, null, itemValues);
-            }
-        }
-
-        db.close();
-    }
-
-    public List<Order> getAllOrders() {
-        List<Order> orderList = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ORDERS, null);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                int id = cursor.getInt(0);
-                int totalPrice = cursor.getInt(1);
-                String date = cursor.getString(2);
-
-                // Lấy danh sách OrderItem cho Order này
-                List<OrderItem> orderItems = getOrderItemsByOrderId(id);
-
-                orderList.add(new Order(id, totalPrice, date, orderItems));
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-
-        return orderList;
-    }
+//    public List<Order> getAllOrders() {
+//        List<Order> orderList = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ORDERS, null);
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                int id = cursor.getInt(0);
+//                int totalPrice = cursor.getInt(1);
+//                String date = cursor.getString(2);
+//
+//                // Lấy danh sách OrderItem cho Order này
+//                List<OrderItem> orderItems = getOrderItemsByOrderId(id);
+//
+//                orderList.add(new Order(id, totalPrice, date, orderItems));
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//
+//        return orderList;
+//    }
 
     // Hàm lấy danh sách OrderItem theo OrderId
-    public List<OrderItem> getOrderItemsByOrderId(int orderId) {
-        List<OrderItem> orderItems = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ORDER_ITEMS + " WHERE " + COLUMN_ORDER_ITEM_ORDER_ID + " = ?",
-                new String[]{String.valueOf(orderId)});
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                String productName = cursor.getString(2);
-                int quantity = cursor.getInt(3);
-                int productImage = cursor.getInt(4);
-
-                orderItems.add(new OrderItem(productName, quantity, productImage));
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-
-        return orderItems;
-
-    }
+//    public List<OrderItem> getOrderItemsByOrderId(int orderId) {
+//        List<OrderItem> orderItems = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_ORDER_ITEMS + " WHERE " + COLUMN_ORDER_ITEM_ORDER_ID + " = ?",
+//                new String[]{String.valueOf(orderId)});
+//
+//        if (cursor != null && cursor.moveToFirst()) {
+//            do {
+//                String productName = cursor.getString(2);
+//                int quantity = cursor.getInt(3);
+//                int productImage = cursor.getInt(4);
+//
+//                orderItems.add(new OrderItem(productName, quantity, productImage));
+//            } while (cursor.moveToNext());
+//            cursor.close();
+//        }
+//
+//        return orderItems;
+//
+//    }
 
 
     // Thêm comment vào database (trả về void)

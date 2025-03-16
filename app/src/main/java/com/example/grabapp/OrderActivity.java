@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grabapp.adapter.OrderAdapter;
+import com.example.grabapp.dao.OrderDAO;
 import com.example.grabapp.model.Order;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class OrderActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private OrderAdapter orderAdapter;
-    private DatabaseHelper databaseHelper;
+    private OrderDAO orderDAO;
 
     ImageButton btnBack;
 
@@ -42,17 +43,28 @@ public class OrderActivity extends AppCompatActivity {
 
 
 
-        databaseHelper = new DatabaseHelper(this);
+        orderDAO = new OrderDAO();
 
-        // Lấy danh sách đơn hàng từ database
-        List<Order> orderList = databaseHelper.getAllOrders();
-        if (orderList.isEmpty()) {
-            Toast.makeText(this, "Không có đơn hàng nào!", Toast.LENGTH_SHORT).show();
-        } else {
-            orderAdapter = new OrderAdapter(orderList,databaseHelper);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            recyclerView.setAdapter(orderAdapter);
-        }
+
+        String userId="1";
+
+        // Gọi phương thức lấy đơn hàng theo userId = "1"
+        orderDAO.getOrdersByUserId(userId, new OrderDAO.OnOrdersFetchedListener() {
+            @Override
+            public void onSuccess(List<Order> orders) {
+                if (orders.isEmpty()) {
+                    Toast.makeText(OrderActivity.this, "Không có đơn hàng nào!", Toast.LENGTH_SHORT).show();
+                } else {
+                    orderAdapter = new OrderAdapter(orders);
+                    recyclerView.setAdapter(orderAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Toast.makeText(OrderActivity.this, "Lỗi khi lấy đơn hàng!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
 
