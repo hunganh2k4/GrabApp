@@ -82,21 +82,21 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
 
 
 
-//        btnRemove.setOnClickListener(v -> {
-//            List<Product> selectedProducts = cartAdapter.getSelectedProducts();
-//            if (selectedProducts.isEmpty()) {
-//                Toast.makeText(CartActivity.this, "Không có sản phẩm nào được chọn!", Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            // Xóa sản phẩm được chọn khỏi giỏ hàng
-//            CartManager.getCartProducts().removeAll(selectedProducts);
-//            cartAdapter = new CartAdapter(CartActivity.this, CartManager.getCartProducts(), CartActivity.this);
-//            listViewCart.setAdapter(cartAdapter);
-//
-//            onTotalPriceChanged(cartAdapter.calculateTotalPrice());
-//            Toast.makeText(CartActivity.this, "Đã xóa sản phẩm đã chọn!", Toast.LENGTH_SHORT).show();
-//        });
+        btnRemove.setOnClickListener(v -> {
+            List<Product> selectedProducts = cartAdapter.getSelectedProducts();
+            if (selectedProducts.isEmpty()) {
+                Toast.makeText(CartActivity.this, "Không có sản phẩm nào được chọn!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Xóa sản phẩm được chọn khỏi giỏ hàng
+            CartManager.getCartProducts().removeAll(selectedProducts);
+            cartAdapter = new CartAdapter(CartActivity.this, CartManager.getCartProducts(), CartActivity.this);
+            listViewCart.setAdapter(cartAdapter);
+
+            onTotalPriceChanged(cartAdapter.calculateTotalPrice());
+            Toast.makeText(CartActivity.this, "Đã xóa sản phẩm đã chọn!", Toast.LENGTH_SHORT).show();
+        });
     }
 
     // Cập nhật tổng giá khi giá thay đổi
