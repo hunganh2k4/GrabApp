@@ -266,42 +266,42 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     // Thêm comment vào database (trả về void)
-    public void addComment(String productName, String userName, String content) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("product_name", productName);
-        values.put("user_name", userName);
-        values.put("content", content);
-
-        try {
-            db.insert("comments", null, values);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            db.close();
-        }
-    }
-
-
-    public List<Comment> getCommentsByProduct(String productName) {
-        List<Comment> comments = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.rawQuery("SELECT product_name, user_name, content FROM Comments WHERE product_name = ?", new String[]{productName});
-
-        if (cursor.moveToFirst()) {
-            do {
-                String product = cursor.getString(0);
-                String userName = cursor.getString(1);
-                String content = cursor.getString(2);
-                comments.add(new Comment(product, userName, content));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return comments;
-    }
+//    public void addComment(String productName, String userName, String content) {
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
+//        values.put("product_name", productName);
+//        values.put("user_name", userName);
+//        values.put("content", content);
+//
+//        try {
+//            db.insert("comments", null, values);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            db.close();
+//        }
+//    }
+//
+//
+//    public List<Comment> getCommentsByProduct(String productName) {
+//        List<Comment> comments = new ArrayList<>();
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        Cursor cursor = db.rawQuery("SELECT product_name, user_name, content FROM Comments WHERE product_name = ?", new String[]{productName});
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                String product = cursor.getString(0);
+//                String userName = cursor.getString(1);
+//                String content = cursor.getString(2);
+//                comments.add(new Comment(product, userName, content));
+//            } while (cursor.moveToNext());
+//        }
+//
+//        cursor.close();
+//        db.close();
+//        return comments;
+//    }
 
 
 }

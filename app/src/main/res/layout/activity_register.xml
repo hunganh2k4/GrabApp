@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".LoginActivity">
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 android:contentDescription="Grab Logo"
                 android:layout_marginBottom="24dp"/>
 
-            <!-- Nhập SĐT -->
+            <!-- Nhập Tên đăng nhập -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -52,6 +52,32 @@
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- Nhập Email -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                app:endIconMode="clear_text"
+                android:paddingBottom="12dp"
+                app:boxBackgroundMode="filled"
+                app:boxStrokeColor="@color/green"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp"
+                android:backgroundTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Nhập Mật khẩu -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,25 +102,14 @@
                     android:textColor="@color/black"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <!-- Nút Đăng nhập -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Đăng nhập"
-                android:backgroundTint="@color/green"
-                android:textColor="@color/white" />
-
             <!-- Nút Đăng ký -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Đăng ký"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/green"
-                android:layout_marginTop="16dp"/>
+                android:backgroundTint="@color/green"
+                android:textColor="@color/white" />
 
         </LinearLayout>
     </ScrollView>

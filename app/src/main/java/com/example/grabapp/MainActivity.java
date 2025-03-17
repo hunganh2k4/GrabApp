@@ -79,16 +79,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//        recyclerView = findViewById(R.id.recyclerView);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//
-//        hotSpotList = new ArrayList<>();
-//        hotSpotList.add(new HotSpot("AEON MALL", 25, R.drawable.aeonmall));
-//        hotSpotList.add(new HotSpot("Saigon Centre", 15, R.drawable.saigoncenter));
-//        hotSpotList.add(new HotSpot("SC VivoCity", 20, R.drawable.vivocity));
-//
-//        adapter = new HotSpotAdapter(this, hotSpotList);
-//        recyclerView.setAdapter(adapter);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+
+        hotSpotList = new ArrayList<>();
+        hotSpotList.add(new HotSpot("AEON MALL", 25, R.drawable.aeonmall));
+        hotSpotList.add(new HotSpot("Saigon Centre", 15, R.drawable.saigoncenter));
+        hotSpotList.add(new HotSpot("SC VivoCity", 20, R.drawable.vivocity));
+
+        adapter = new HotSpotAdapter(this, hotSpotList);
+        recyclerView.setAdapter(adapter);
 
 
 
@@ -97,9 +97,9 @@ public class MainActivity extends AppCompatActivity {
 //        beeLatteaProducts.add(new Product(UUID.randomUUID().toString(),"Trà Sữa Trân Châu", 50000, R.drawable.bee_lattea, "Trà sữa thơm béo kết hợp với trân châu dai giòn, mang đến hương vị ngọt ngào và sảng khoái.", 4.8f, 100));
 //        beeLatteaProducts.add(new Product(UUID.randomUUID().toString(),"Trà Đào Cam Sả", 45000, R.drawable.bee_lattea, "Trà đào tươi mát kết hợp với cam và sả, tạo nên một thức uống thanh nhiệt, thơm ngon, giúp giải khát hiệu quả.",4.5f, 200));
 //
-//        List<Product> hoaSuaProducts = new ArrayList<>();
-//        hoaSuaProducts.add(new Product("Bún Đậu Mắm Tôm", 60000, R.drawable.bun_dau, "Món ăn đặc trưng miền Bắc với bún, đậu hũ giòn, thịt luộc, chả cốm, ăn kèm mắm tôm đậm đà."));
-//        hoaSuaProducts.add(new Product("Nem Chua Rán", 40000, R.drawable.bun_dau, "Nem chua rán giòn rụm, thơm ngon, chấm cùng tương ớt cay nồng tạo nên hương vị khó quên."));
+        List<Product> hoaSuaProducts = new ArrayList<>();
+        hoaSuaProducts.add(new Product(UUID.randomUUID().toString(),"Bún Đậu Mắm Tôm", 60000, R.drawable.bun_dau, "Món ăn đặc trưng miền Bắc với bún, đậu hũ giòn, thịt luộc, chả cốm, ăn kèm mắm tôm đậm đà.",4.5f,50));
+        hoaSuaProducts.add(new Product(UUID.randomUUID().toString(),"Nem Chua Rán", 40000, R.drawable.bun_dau, "Nem chua rán giòn rụm, thơm ngon, chấm cùng tương ớt cay nồng tạo nên hương vị khó quên.",4.1f,100));
 //
 //        List<Restaurant> restaurantList = new ArrayList<>();
 //        restaurantList.add(new Restaurant("Bee Lattea", R.drawable.bee_lattea, 4.5f, 1500, beeLatteaProducts));
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         restaurantDAO = new RestaurantDAO();
-//        Restaurant restaurant = new Restaurant(UUID.randomUUID().toString(),"Bee Lattea", R.drawable.bee_lattea, 4.5f, 1500, beeLatteaProducts);
+//        Restaurant restaurant = new Restaurant(UUID.randomUUID().toString(),"Hoa Sua Bun Dau", R.drawable.bun_dau, 4.8f, 2000, hoaSuaProducts);
 //        restaurantDAO.addRestaurant(restaurant);
 
 

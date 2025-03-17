@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,12 +14,20 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.grabapp.dao.UserDAO;
+import com.example.grabapp.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
-    TextView editUserName;
+    TextView editUserName,edtEmail;
+    ImageView avatar;
+
+
+    private UserDAO userDAO;
+
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,13 +36,50 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         editUserName=findViewById(R.id.editUserName);
+        edtEmail=findViewById(R.id.edtEmail);
+        avatar=findViewById(R.id.avatar);
 
-//        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
-//        String username = sharedPreferences.getString("username", "Chưa có username");
-//        String password = sharedPreferences.getString("password", "Chưa có password");
+
 
 
         mAuth = FirebaseAuth.getInstance();
+        userDAO = new UserDAO();
+
+
+        // Lấy email của user đang đăng nhập
+        if (mAuth.getCurrentUser() != null) {
+            String email = mAuth.getCurrentUser().getEmail();
+
+            // Gọi UserDAO để lấy thông tin user từ Firestore
+            userDAO.getUserByEmail(email, new UserDAO.FirestoreUserCallback() {
+                @Override
+                public void onUserRetrieved(User fetchedUser) {
+                    if (fetchedUser != null) {
+                        user = fetchedUser;
+                        // Cập nhật giao diện khi dữ liệu đã có
+                        editUserName.setText(user.getUsername());
+                        edtEmail.setText(user.getEmail());
+                        if (user.getImageResId() != 0) {  // Kiểm tra nếu imageId hợp lệ
+                            avatar.setImageResource(user.getImageResId());
+                        }
+
+                    } else {
+                        user = new User();
+                        editUserName.setText("Không có username");
+                        edtEmail.setText("Không có email");
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(ProfileActivity.this, "Lỗi khi lấy user", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
+
 
 
 

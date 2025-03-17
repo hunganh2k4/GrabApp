@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grabapp.adapter.ProductAdapter;
+import com.example.grabapp.model.FavoriteManager;
 import com.example.grabapp.model.Product;
 import com.example.grabapp.model.Restaurant;
 
@@ -83,15 +84,15 @@ public class FoodActivity extends AppCompatActivity {
         }
 
 
-//        btnFavorite.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                FavoriteManager.addRestaurant(restaurant);
-//                Intent intent = new Intent(FoodActivity.this, FavoriteActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        btnFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FavoriteManager.addRestaurant(restaurant);
+                Intent intent = new Intent(FoodActivity.this, FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

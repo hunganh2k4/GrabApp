@@ -63,6 +63,16 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
+        MaterialButton btnRegister = findViewById(R.id.btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
 
     }

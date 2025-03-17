@@ -21,20 +21,35 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Hàng chứa tên người dùng và RatingBar -->
         <TextView
             android:id="@+id/txt_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên người dùng"
             android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:layout_marginEnd="8dp"/>
 
+        <!-- RatingBar -->
+        <RatingBar
+            android:id="@+id/rating_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.5"
+            android:isIndicator="true"
+            android:scaleX="0.4"
+            android:scaleY="0.4"/>
+
+        <!-- Nội dung bình luận -->
         <TextView
             android:id="@+id/txt_comment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nội dung bình luận"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.grabapp.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,11 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grabapp.R;
 import com.example.grabapp.model.Comment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
-
     private List<Comment> commentList;
 
     public CommentAdapter(List<Comment> commentList) {
@@ -32,8 +31,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     @Override
     public void onBindViewHolder(@NonNull CommentViewHolder holder, int position) {
         Comment comment = commentList.get(position);
-        holder.txtUserName.setText(comment.getUserName());
-        holder.txtComment.setText(comment.getContent());
+        holder.tvUserName.setText(comment.getUserName());
+        holder.tvContent.setText(comment.getContent());
+        holder.ratingBar.setRating(comment.getRating());
     }
 
     @Override
@@ -42,27 +42,19 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     }
 
     public static class CommentViewHolder extends RecyclerView.ViewHolder {
-        TextView txtUserName, txtComment;
+        TextView tvUserName, tvContent;
+        RatingBar ratingBar;
 
         public CommentViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtUserName = itemView.findViewById(R.id.txt_user_name);
-            txtComment = itemView.findViewById(R.id.txt_comment);
+            tvUserName = itemView.findViewById(R.id.txt_user_name);
+            tvContent = itemView.findViewById(R.id.txt_comment);
+            ratingBar = itemView.findViewById(R.id.rating_bar);
         }
     }
-
-    // Cập nhật danh sách bình luận
     public void updateComments(List<Comment> newComments) {
-        if (commentList == null) {
-            commentList = new ArrayList<>(); // Tránh lỗi null
-        }
-
-        commentList.clear();
-
-        if (newComments != null) {
-            commentList.addAll(newComments);
-        }
-
+        this.commentList.clear();
+        this.commentList.addAll(newComments);
         notifyDataSetChanged();
     }
 }

@@ -12,10 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grabapp.adapter.CartAdapter;
 import com.example.grabapp.dao.OrderDAO;
+import com.example.grabapp.dao.UserDAO;
 import com.example.grabapp.model.CartManager;
 import com.example.grabapp.model.Order;
 import com.example.grabapp.model.OrderItem;
 import com.example.grabapp.model.Product;
+import com.example.grabapp.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -35,6 +38,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
 
     ImageButton btnBack;
 
+    private UserDAO userDAO;
+    private FirebaseAuth mAuth;
+
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +59,8 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
         listViewCart.setAdapter(cartAdapter);
 
 
-
+        mAuth = FirebaseAuth.getInstance();
+        userDAO = new UserDAO();
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +68,28 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
                 finish(); // Kết thúc Activity hiện tại và quay lại Activity trước đó
             }
         });
+
+        if (mAuth.getCurrentUser() != null) {
+            String email = mAuth.getCurrentUser().getEmail();
+
+            // Gọi UserDAO để lấy thông tin user từ Firestore
+            userDAO.getUserByEmail(email, new UserDAO.FirestoreUserCallback() {
+                @Override
+                public void onUserRetrieved(User fetchedUser) {
+                    if (fetchedUser != null) {
+                        user = fetchedUser;
+                    } else {
+                        user = new User();
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(CartActivity.this, "Lỗi khi lấy user", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
 
 
@@ -77,7 +108,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.OnTot
                 // ✅ Lấy thời gian hiện tại
                 String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                 // ✅ Giả sử userId lấy từ Firebase Auth hoặc SharedPreferences
-                String userId = "1"; // Thay bằng userId thực tế
+                String userId = user.getId();
 
                 // ✅ Chuyển sản phẩm trong giỏ hàng sang danh sách OrderItem
                 List<OrderItem> orderItems = new ArrayList<>();

@@ -7,18 +7,18 @@ public class User implements Serializable {
     private String email;
     private String password;
     private String username;
-    private String avatar;
+    private int imageResId;
 
     public User() {
         // Constructor mặc định để Firebase có thể đọc dữ liệu
     }
 
-    public User(String id, String email, String password, String username, String avatar) {
+    public User(String id, String email, String password, String username, int imageResId) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.username = username;
-        this.avatar = avatar;
+        this.imageResId = imageResId;
     }
 
     public String getId() {
@@ -53,11 +53,11 @@ public class User implements Serializable {
         this.username = username;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public int getImageResId() {
+        return imageResId;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setImageResId(int imageResId) {
+        this.imageResId = imageResId;
     }
 }
